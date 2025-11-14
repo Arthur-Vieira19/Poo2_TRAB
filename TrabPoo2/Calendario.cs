@@ -10,8 +10,16 @@ namespace TrabPoo2
     {
         public DateTime DataAtual { get; set; }
 
-        public void AvancarDia() { }
-        public void RetrocederDia() { }
-        public void ExibirDataAtual() { }
+        public void AvancarDia() {
+            DataAtual.AddDays(1);
+        }
+        public void RetrocederDia()
+        {
+            DataAtual.AddDays(-1);
+        }
+        public void ExibirDataAtual()
+        {
+            Console.WriteLine("Data:\n" + DataAtual);
+        }
     }
 }

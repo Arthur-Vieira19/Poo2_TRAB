@@ -8,5 +8,9 @@ namespace TrabPoo2
 {
     class Transferir : Transacao
     {
+        public bool Transfere(Conta contaOriginal, Conta contaDestino, decimal valor)
+        {
+
+        }
     }
 }

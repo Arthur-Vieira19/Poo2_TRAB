@@ -1,19 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TrabPoo2;
 
 namespace TrabPoo2
 {
-    class Conta
+    public abstract class Conta
     {
-        public string Numero { get; set; }
-        public string Tipo { get; set; }
-        public decimal Saldo { get; set; }
+        public string Numero { get; protected set; }
+        public decimal Saldo { get; protected set; }
+
         public Cliente Titular { get; set; }
-        public void Depositar(decimal valor) { }
-        public void Sacar(decimal valor) { }
-        public void Transferir(Conta destino, decimal valor) { }
+
+        public List<RegistroTransacao> Historico { get; } = new List<RegistroTransacao>();
+
+        public Conta(string numero, Cliente titular)
+        {
+            Numero = numero;
+            Titular = titular;
+            Saldo = 0;
+        }
+
+        public virtual void Creditar(decimal valor)
+        {
+            if (valor <= 0)
+                throw new ArgumentException("O valor do crédito deve ser positivo.");
+
+            Saldo += valor;
+        }
+
+        public abstract bool Debitar(decimal valor);
+
+        public abstract void AplicarTaxaOuRendimento();
     }
 }

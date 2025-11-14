@@ -6,7 +6,49 @@ using System.Threading.Tasks;
 
 namespace TrabPoo2
 {
-    class ContaCorrente
+    public class ContaCorrente : Conta
     {
+        public decimal LimiteChequeEspecial { get; private set; }
+
+        public ContaCorrente(string numero, Cliente titular, decimal limite)
+            : base(numero, titular)
+        {
+            LimiteChequeEspecial = limite;
+        }
+
+        public override bool Debitar(decimal valor)
+        {
+            decimal totalDisponivel = Saldo + LimiteChequeEspecial;
+
+            if (valor <= totalDisponivel)
+            {
+                Saldo -= valor;
+                return true;
+            }
+            return false;
+        }
+
+        public override void AplicarTaxaOuRendimento()
+        {
+            const decimal TaxaManutencao = 10.00m;
+            const decimal SaldoMinimoIsencao = 500.00m;
+
+            if (Saldo < SaldoMinimoIsencao)
+            {
+                if (Debitar(TaxaManutencao))
+                {
+                    var registro = new RegistroTransacao
+                    {
+                        DataHora = DateTime.Now,
+                        Valor = -TaxaManutencao,
+                        Descricao = "Taxa de Manutenção Mensal",
+                        Conta = this,
+                        ContaNumero = this.Numero
+                    }; 
+
+                    Historico.Add(registro);
+                }
+            }
+        }
     }
 }

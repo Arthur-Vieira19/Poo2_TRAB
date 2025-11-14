@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TrabPoo2;
 
 namespace TrabPoo2
@@ -31,4 +32,5 @@ namespace TrabPoo2
 
         public abstract void AplicarTaxaOuRendimento();
     }
+
 }

@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Packaging;
 using TrabPoo2;
 
 namespace TrabPoo2
 {
     public abstract class Conta
     {
+        public string Tipo { get; protected set; }
         public string Numero { get; protected set; }
         public decimal Saldo { get; protected set; }
+        public string Agencia { get; protected set; }
+
 
         public Cliente Titular { get; set; }
 
         public List<RegistroTransacao> Historico { get; } = new List<RegistroTransacao>();
 
-        public Conta(string numero, Cliente titular)
+        public Conta(string numero, Cliente titular, string agencia, string tipo)
         {
+            Tipo = tipo;
+            Agencia = agencia;
             Numero = numero;
             Titular = titular;
             Saldo = 0;

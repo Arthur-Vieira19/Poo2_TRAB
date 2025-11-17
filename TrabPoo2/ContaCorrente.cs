@@ -10,8 +10,8 @@ namespace TrabPoo2
     {
         public decimal LimiteChequeEspecial { get; private set; }
 
-        public ContaCorrente(string numero, Cliente titular, decimal limite)
-            : base(numero, titular)
+        public ContaCorrente(string numero, Cliente titular, decimal limite, string agencia)
+            : base(numero, titular,agencia, "CORRENTE")
         {
             LimiteChequeEspecial = limite;
         }

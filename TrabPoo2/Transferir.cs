@@ -23,41 +23,37 @@ namespace TrabPoo2
             _valor = valor;
         }
 
-        // Método Executar() da interface Transacao
-        public bool Executar()
+        public bool Executar(GerenciadorDeTransacoes gerenciador)
         {
-            // 1. Tenta debitar da conta original
+            if (gerenciador == null)
+                throw new ArgumentNullException(nameof(gerenciador));
+
             if (_contaOriginal.Debitar(_valor))
             {
-                // 2. Se o débito for bem-sucedido, credita a conta destino
                 _contaDestino.Creditar(_valor);
 
-                // 3. Registra a transação nas duas contas
-                RegistrarTransacao("Transferência Enviada", -_valor, _contaOriginal); // Débito é negativo
-                RegistrarTransacao("Transferência Recebida", _valor, _contaDestino); // Crédito é positivo
+                gerenciador.Registrar(new RegistroTransacao
+                {
+                    DataHora = DateTime.Now,
+                    Valor = -_valor, 
+                    Descricao = $"Transferência Enviada p/ Conta {_contaDestino.Numero}",
+                }, _contaOriginal);
+
+                gerenciador.Registrar(new RegistroTransacao
+                {
+                    DataHora = DateTime.Now,
+                    Valor = _valor, 
+                    Descricao = $"Transferência Recebida da Conta {_contaOriginal.Numero}",
+                }, _contaDestino);
 
                 return true;
             }
             else
             {
-                // O método Debitar() da conta já lida com saldo insuficiente.
                 return false;
             }
         }
 
-        // Método auxiliar (Clean Code)
-        private void RegistrarTransacao(string descricao, decimal valor, Conta conta)
-        {
-            var registro = new RegistroTransacao
-            {
-                DataHora = DateTime.Now,
-                Valor = valor,
-                Descricao = descricao,
-                Conta = conta, // Se for usar EF Core, este pode ser opcional se ContaNumero for a chave
-                ContaNumero = conta.Numero 
-            };
-            conta.Historico.Add(registro);
-        }
     }
 }
 

@@ -33,7 +33,7 @@ namespace TrabPoo2
             const decimal TaxaManutencao = 10.00m;
             const decimal SaldoMinimoIsencao = 500.00m;
 
-            if (Saldo < SaldoMinimoIsencao && Debitar(TaxaManutencao)
+            if (Saldo < SaldoMinimoIsencao && Debitar(TaxaManutencao))
             {
                 var registro = new RegistroTransacao
                 {

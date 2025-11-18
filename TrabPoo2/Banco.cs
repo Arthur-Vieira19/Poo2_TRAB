@@ -20,14 +20,12 @@ namespace TrabPoo2
             Nome = nome;
             Codigo = codigo;
 
-
-
             GerContas = new GerenciadorDeContas();
             GerClientes = new GerenciadorDeClientes();
             GerTransacoes = new GerenciadorDeTransacoes();
             Calendario = new Calendario();
-
         }
+
         public bool ExecutarTransacao(Transacao transacao)
         {
             if (transacao == null)
@@ -37,23 +35,22 @@ namespace TrabPoo2
             // Chama a execução, passando o GerenciadorDeTransacoes como dependência
             return transacao.Executar(GerTransacoes);
         }
-    }
-        /*public void adicionarCliente(Cliente cliente) {
-                if (cliente == null) {
-                    Console.WriteLine("CLIENTE INEXISTENTE!");
-                }
-                GerClientes.Adicionar(cliente);
-            
+
+        /*
+        public void adicionarCliente(Cliente cliente) {
+            if (cliente == null) {
+                Console.WriteLine("CLIENTE INEXISTENTE!");
             }
-            public void removerCliente(Cliente cliente) {
-
-                if (cliente == null) {
-
-                    Console.WriteLine("CLIENTE INEXISTENTE");
-                }
-                else { 
-                    GerClientes.Remover(cliente);
-                }
+            GerClientes.Adicionar(cliente);
+        }
+        public void removerCliente(Cliente cliente) {
+            if (cliente == null) {
+                Console.WriteLine("CLIENTE INEXISTENTE");
+            }
+            else { 
+                GerClientes.Remover(cliente);
             }
         }
+        */
     }
+}

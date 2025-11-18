@@ -16,12 +16,18 @@ namespace TrabPoo2
         }
 
         // Registrar uma transação
-        public void Registrar(RegistroTransacao registro)
+        public void Registrar(RegistroTransacao registro, Conta conta)
         {
             if (registro == null)
                 throw new ArgumentNullException(nameof(registro));
+            if (conta == null)
+                throw new ArgumentException("A transação deve estar associada a uma conta.");
+
+            registro.Conta = conta;
+            registro.ContaNumero = conta.Numero;
 
             _transacoes.Add(registro);
+            conta.Historico.Add(registro);
         }
 
         // Obter todas as transações

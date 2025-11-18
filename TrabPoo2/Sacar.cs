@@ -8,23 +8,40 @@ namespace TrabPoo2
 {
     class Sacar : Transacao
     {
+        private Conta _conta { get; set; }
+        private decimal _valor { get; set; }
+
+        public Sacar(Conta conta, decimal valor)
+        {
+            _conta = conta;
+            _valor = valor;
+        }
+
         public bool Executar()
         {
-            return true;
-        }
-        public bool executarSaque(Cliente cliente, Conta conta, decimal valor)
-        {
-            if(cliente == null)
+            if (_valor <= 0)
             {
-                Console.WriteLine("Cliente inválido! ");
+                Console.WriteLine("Valor de saque inválido.");
                 return false;
             }
-            if (cliente.Contas.Contains(conta) && conta.Saldo >= valor)
+
+            if (_conta.Debitar(_valor))
             {
-                conta.Saldo -= valor;
-                return Executar();
+                _conta.Historico.Add(new RegistroTransacao
+                {
+                    DataHora = DateTime.Now,
+                    Valor = _valor,
+                    Descricao = "Saque em Conta",
+                    ContaNumero = _conta.Numero 
+                });
+                return true;
             }
-            return false;
+            else
+            {
+                Console.WriteLine("Saldo insuficiente para saque.");
+                return false;
+            }
         }
+
     }
 }

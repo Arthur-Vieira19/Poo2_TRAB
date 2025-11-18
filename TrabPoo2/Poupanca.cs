@@ -16,6 +16,10 @@ namespace TrabPoo2
 
         public override bool Debitar(decimal valor)
         {
+            if(valor <= 0)
+            {
+                throw new ArgumentException("O valor do débito deve ser positivo.");
+            }
             if (valor <= Saldo)
             {
                 Saldo -= valor;
@@ -26,7 +30,7 @@ namespace TrabPoo2
 
         public override void AplicarTaxaOuRendimento()
         {
-            const decimal taxaRendimento = 0.005m; // 0.5% de rendimento mensal
+            const decimal taxaRendimento = 0.005m; 
             decimal rendimento = Saldo * taxaRendimento;
 
             if (rendimento > 0)
@@ -38,7 +42,6 @@ namespace TrabPoo2
                     DataHora = DateTime.Now,
                     Valor = rendimento,
                     Descricao = "Rendimento Mensal Poupança",
-                    Conta = this,
                     ContaNumero = this.Numero
                 });
             }

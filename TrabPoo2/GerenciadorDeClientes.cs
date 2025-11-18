@@ -8,20 +8,20 @@ namespace TrabPoo2
 {
     class GerenciadorDeClientes
     {
-        private List<Cliente> clientes;
+        private readonly List<Cliente> clientes;
+
         public GerenciadorDeClientes() {
             clientes = new List<Cliente>();
         }
-        public void Adicionar(Cliente cliente) {
-            foreach (Cliente c in clientes) {
-                if (c.Id == cliente.Id) {
-                    Console.WriteLine("CLIENTE JA CADASTRADO!");
-                
-                }
-            
-            }
-            clientes.Add(cliente);
 
+        public bool Adicionar(Cliente cliente) {
+            if (clientes.Any(c => c.Id == cliente.Id))
+            {
+                return false;
+            }
+
+            clientes.Add(cliente);
+            return true;
         }
 
         public void Remover(Cliente cliente) {
@@ -31,44 +31,15 @@ namespace TrabPoo2
         }
 
         public Cliente BuscarPorCPF(string cpf) {
-            foreach (Cliente c1 in clientes) {
-                if (c1.CPF == cpf)
-                {
-
-                    Console.WriteLine($"O CPF: {cpf}, foi encontrado!");
-                    
-                }
-
-            }
-
-
-
-
-            Console.WriteLine($"CPF {cpf}, nao encontrado");
-
-            return null;
+            return clientes.FirstOrDefault(c => c.CPF == cpf);
         }
+
         public Cliente BuscarPorId(int id) {
-            foreach (Cliente c in clientes)
-            { if (c.Id == id)
-                {
-                    Console.WriteLine("CLIENTE ENCONTRADO!");
-
-                }
-            }
-
-            Console.WriteLine("CLIENTE INEXISTENTE!");
-            return null;
-
-
+            return clientes.FirstOrDefault(c => c.Id == id);
         }
 
         public List<Cliente> ListarClientes() {
-
-            foreach (Cliente c in clientes) {
-                Console.WriteLine(c);
-            }
-            return null;
+            return clientes;
         }
     } 
 }

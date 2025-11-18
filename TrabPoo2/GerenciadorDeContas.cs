@@ -8,7 +8,7 @@ namespace TrabPoo2
 {
     class GerenciadorDeContas
     {
-        private List<Conta> contas;
+        private readonly List<Conta> contas;
 
         public GerenciadorDeContas()
         {
@@ -17,69 +17,39 @@ namespace TrabPoo2
 
         public Conta CriarConta(string agencia, string numero, Cliente titular, string tipo)
         {
-            // Verifica duplicidade
-            foreach (Conta c in contas)
+            if (contas.Any(c => c.Numero == numero && c.Agencia == agencia))
             {
-                if (c.Numero == numero && c.Agencia == agencia)
-                {
-                    Console.WriteLine("CONTA JA EXISTENTE!");
-                    return null;
-                }
-            }
-
-            Conta novaConta = null;
-
-            if (tipo.ToUpper() == "CORRENTE")
-                novaConta = new ContaCorrente(numero,titular,0,agencia);
-
-            else if (tipo.ToUpper() == "POUPANCA")
-                novaConta = new Poupanca(numero, titular, agencia);
-
-            else
-            {
-                Console.WriteLine("TIPO DE CONTA INVALIDO!");
+                // Melhor prática: Retornar null e deixar o chamador exibir a mensagem de erro.
                 return null;
             }
 
-            contas.Add(novaConta);
+            Conta novaConta = tipo.ToUpper() switch
+            {
+                "CORRENTE" => new ContaCorrente(numero, titular, 0, agencia),
+                "POUPANCA" => new Poupanca(numero, titular, agencia), // Assumindo saldo inicial zero no construtor de Poupanca
+                _ => null // Default (caso o tipo seja inválido)
+            };
 
-            Console.WriteLine("CONTA CRIADA COM SUCESSO!");
+            if (novaConta != null)
+            {
+                contas.Add(novaConta);
+            }
+       
             return novaConta;
         }
 
-        public void FecharConta(Conta conta) {
-            foreach (Conta c in contas) {
-                if (c.Numero == conta.Numero) {
-                    contas.Remove(conta);
-                }
-                else { Console.WriteLine("CONTA INEXISTENTE"); }
-            }
-        
+        public bool FecharConta(Conta conta) {
+            return contas.Remove(conta);
         }
 
         public Conta BuscarPorNumero(string agencia, string numero)
         {
-            foreach (Conta c in contas)
-            {
-                if (c.Numero == numero)
-                {
-                    Console.WriteLine("CONTA ENCONTRADA!");
-                }
-            }   
-            return null;
+            return contas.FirstOrDefault(c => c.Numero == numero && c.Agencia == agencia);
         }
 
         public List<Conta> BuscarPorCliente(Cliente cliente)
         {
-            List<Conta> resultado = new List<Conta>();
-
-            foreach (Conta c in contas)
-            {
-                if (c.Titular.Id == cliente.Id)
-                    resultado.Add(c);
-            }
-
-            return resultado;
+            return contas.Where(c => c.Titular.Id == cliente.Id).ToList();
         }
 
         public List<Conta> ListarContas()

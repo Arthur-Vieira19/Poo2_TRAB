@@ -41,8 +41,10 @@ namespace TrabPoo2
         // Filtrar por período
         public List<RegistroTransacao> ObterPorPeriodo(DateTime inicio, DateTime fim)
         {
+            DateTime fimExclusivo = fim.Date.AddDays(1);
+
             return _transacoes
-                .Where(t => t.DataHora >= inicio && t.DataHora <= fim)
+                .Where(t => t.DataHora >= inicio.Date && t.DataHora <= fimExclusivo)
                 .ToList();
         }
 
@@ -57,10 +59,13 @@ namespace TrabPoo2
         // Log simples para depuração
         public void ExibirLog()
         {
+            Console.WriteLine("--- LOG DE TRANSAÇÕES ---");
             foreach (var t in _transacoes)
             {
-                Console.WriteLine($"{t.DataHora} | {t.ContaNumero} | {t.Descricao} | {t.Valor}");
+                // Formata o valor como moeda e a data/hora de forma mais legível
+                Console.WriteLine($"{t.DataHora:dd/MM/yyyy HH:mm:ss} | Conta: {t.ContaNumero} | {t.Descricao} | Valor: {t.Valor.ToString("C")}");
             }
+            Console.WriteLine("-------------------------");
         }
     }
 }

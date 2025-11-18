@@ -13,17 +13,16 @@ namespace TrabPoo2
         public string Agencia { get; protected set; }
 
 
-        public Cliente Titular { get; set; }
+        public Cliente Titular { get; }
 
-        public List<RegistroTransacao> Historico { get; } = new List<RegistroTransacao>();
+        public ICollection<RegistroTransacao> Historico { get; } = new List<RegistroTransacao>();
 
         public Conta(string numero, Cliente titular, string agencia, string tipo)
         {
-            Tipo = tipo;
-            Agencia = agencia;
-            Numero = numero;
-            Titular = titular;
-            Saldo = 0;
+            Numero = numero ?? throw new ArgumentNullException(nameof(numero));
+            Titular = titular ?? throw new ArgumentNullException(nameof(titular));
+            Agencia = agencia ?? throw new ArgumentNullException(nameof(agencia));
+            Tipo = tipo ?? throw new ArgumentNullException(nameof(tipo));
         }
 
         public virtual void Creditar(decimal valor)

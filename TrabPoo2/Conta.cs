@@ -37,6 +37,11 @@ namespace TrabPoo2
         public abstract bool Debitar(decimal valor);
 
         public abstract void AplicarTaxaOuRendimento();
+
+        public override string ToString()
+        {
+            return $"Conta {Tipo} - Número: {Numero}, Agência: {Agencia}, Saldo: {Saldo:C}";
+        }
     }
 
 }

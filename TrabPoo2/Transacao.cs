@@ -8,6 +8,6 @@ namespace TrabPoo2
 {
     public interface Transacao
     {
-        bool Executar();
+        bool Executar(GerenciadorDeTransacoes gerenciador);
     }
 }

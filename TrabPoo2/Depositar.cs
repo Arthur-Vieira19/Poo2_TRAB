@@ -8,16 +8,20 @@ namespace TrabPoo2
 {
     class Depositar : Transacao
     {
-        private Conta _conta { get; set; }
-        private decimal _valor { get; set; }
+        private readonly Conta _conta { get; set; }
+        private readonly decimal _valor { get; set; }
 
         public Depositar(Conta conta, decimal valor)
         {
+            if(valor <= 0)
+            {
+                throw new ArgumentException("O valor de depósito deve ser positivo");
+            }
             _conta = conta;
             _valor = valor;
         }
 
-        public bool Executar()
+        public bool Executar(GerenciadorDeTransacoes gerenciador)
         {
             if (_valor <= 0)
             {
@@ -27,19 +31,22 @@ namespace TrabPoo2
             try
             {
                 _conta.Creditar(_valor);
-                _conta.Historico.Add(new RegistroTransacao
+
+                // Delega o registro de log para o gerenciador 
+                gerenciador.Registrar(new RegistroTransacao
                 {
                     DataHora = DateTime.Now,
                     Valor = _valor,
                     Descricao = "Depósito em Conta",
-                    ContaNumero = _conta.Numero 
-                });
+                    ContaNumero = _conta.Numero
+                }, _conta);
+
                 return true;
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException)
             {
-                Console.WriteLine(ex.Message);
                 return false;
             }
+        }
     }
 }

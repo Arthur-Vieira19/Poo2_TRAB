@@ -33,21 +33,17 @@ namespace TrabPoo2
             const decimal TaxaManutencao = 10.00m;
             const decimal SaldoMinimoIsencao = 500.00m;
 
-            if (Saldo < SaldoMinimoIsencao)
+            if (Saldo < SaldoMinimoIsencao && Debitar(TaxaManutencao)
             {
-                if (Debitar(TaxaManutencao))
+                var registro = new RegistroTransacao
                 {
-                    var registro = new RegistroTransacao
-                    {
-                        DataHora = DateTime.Now,
-                        Valor = -TaxaManutencao,
-                        Descricao = "Taxa de Manutenção Mensal",
-                        Conta = this,
-                        ContaNumero = this.Numero
-                    }; 
+                    DataHora = DateTime.Now,
+                    Valor = -TaxaManutencao,
+                    Descricao = "Taxa de Manutenção Mensal",
+                    ContaNumero = this.Numero
+                };
 
-                    Historico.Add(registro);
-                }
+                Historico.Add(registro);
             }
         }
     }

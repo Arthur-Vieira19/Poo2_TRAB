@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace TrabPoo2
 {
-        class Banco
-        {
-                public string Nome { get; set; }
-                public string Codigo { get; set; }
+    class Banco
+    {
+        public string Nome { get; }
+        public string Codigo { get; }
 
-                public GerenciadorDeContas GerContas { get; set; }
-                public GerenciadorDeClientes GerClientes { get; set; }
-                public GerenciadorDeTransacoes GerTransacoes { get; set; }
-                public Calendario Calendario { get; set; }
-            public Banco(string nome, string codigo) {
+        public GerenciadorDeContas GerContas { get; }
+        public GerenciadorDeClientes GerClientes { get; }
+        public GerenciadorDeTransacoes GerTransacoes { get; }
+        public Calendario Calendario { get; }
+
+        public Banco(string nome, string codigo) {
             Nome = nome;
             Codigo = codigo;
 
@@ -24,27 +25,35 @@ namespace TrabPoo2
             GerContas = new GerenciadorDeContas();
             GerClientes = new GerenciadorDeClientes();
             GerTransacoes = new GerenciadorDeTransacoes();
-        
-        
+            Calendario = new Calendario();
+
         }
-
-
-                public void adicionarCliente(Cliente cliente) {
-            if (cliente == null) {
-                Console.WriteLine("CLIENTE INEXISTENTE!");
+        public bool ExecutarTransacao(Transacao transacao)
+        {
+            if (transacao == null)
+            {
+                throw new ArgumentNullException(nameof(transacao));
             }
-            GerClientes.Adicionar(cliente);
+            // Chama a execução, passando o GerenciadorDeTransacoes como dependência
+            return transacao.Executar(GerTransacoes);
+        }
+    }
+        /*public void adicionarCliente(Cliente cliente) {
+                if (cliente == null) {
+                    Console.WriteLine("CLIENTE INEXISTENTE!");
+                }
+                GerClientes.Adicionar(cliente);
             
-        }
-                public void removerCliente(Cliente cliente) {
-
-            if (cliente == null) {
-
-                Console.WriteLine("CLIENTE INEXISTENTE");
             }
-            else { 
-                GerClientes.Remover(cliente);
+            public void removerCliente(Cliente cliente) {
+
+                if (cliente == null) {
+
+                    Console.WriteLine("CLIENTE INEXISTENTE");
+                }
+                else { 
+                    GerClientes.Remover(cliente);
+                }
             }
-        }
         }
     }

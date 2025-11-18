@@ -12,37 +12,31 @@ namespace TrabPoo2
         public string Nome { get; set; }
         public string CPF { get; set; }
         public string Endereco { get; set; }
-        public List<Conta> Contas { get; set; }
+        public ICollection<Conta> Contas { get; } = new List<Conta>();
 
 
         public Cliente(int id, string nome, string cpf, string endereco)
         {
             Id = id;
-            Nome = nome;
-            CPF = cpf;
-            Endereco = endereco;
-            Contas = new List<Conta>();
+            Nome = nome ?? throw new ArgumentNullException(nameof(nome));
+            CPF = cpf ?? throw new ArgumentNullException(nameof(cpf));
+            Endereco = endereco ?? throw new ArgumentNullException(nameof(endereco));
         }
 
         public bool AdicionarConta(Conta conta)
         {
-            
-                if (conta == null)
-                {
-                    throw new ArgumentNullException(nameof(conta), "Conta não pode ser nula.");
+            if (conta == null)
+            {
+                throw new ArgumentNullException(nameof(conta), "Conta não pode ser nula.");
+            }
 
-                }
-                
-                bool existe = Contas.Any(c => c.Numero == conta.Numero);
-                
-                if (existe)
-                {
-                    return false;
-                }
+            if (Contas.Any(c => c.Numero == conta.Numero))
+            {
+                return false;
+            }
 
             this.Contas.Add(conta);
-                return true;
-            
+            return true;
         }
         public bool RemoverConta(Conta conta) {
             if(conta == null)
@@ -60,12 +54,9 @@ namespace TrabPoo2
 
 
         }
-        public void ListarContas()
+        public IReadOnlyList<Cliente> ListarClientes()
         {
-            foreach (var conta in Contas)
-            {
-                Console.WriteLine(conta);
-            }
+            return _clientes.AsReadOnly();
         }
     }
 }

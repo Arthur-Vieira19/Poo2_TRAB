@@ -11,11 +11,11 @@ namespace TrabPoo2
         public DateTime DataAtual { get; set; }
 
         public void AvancarDia() {
-            DataAtual.AddDays(1);
+            DataAtual = DataAtual.AddDays(1);
         }
         public void RetrocederDia()
         {
-            DataAtual.AddDays(-1);
+            DataAtual = DataAtual.AddDays(-1);
         }
         public void ExibirDataAtual()
         {

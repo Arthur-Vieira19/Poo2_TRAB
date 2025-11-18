@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrabPoo2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2796fbd8f5d0635511b147cbe403e9e690af7c76")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrabPoo2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrabPoo2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

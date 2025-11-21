@@ -1,0 +1,47 @@
+﻿<Window x:Class="TrabPoo2.Views.CadastroClienteView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Criar Conta - UVV Fintech" Height="550" Width="800"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Background="#F0F4F8">
+        <Border Background="White" Width="400" Height="480" CornerRadius="10" Padding="20">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="Gray" Opacity="0.3"/>
+            </Border.Effect>
+
+            <StackPanel>
+                <Grid Margin="0,0,0,20">
+                    <TextBlock Text="CRIAR CONTA" FontSize="18" FontWeight="Bold" 
+                               Foreground="#003366" HorizontalAlignment="Center"/>
+
+                    <Button Content="Voltar" HorizontalAlignment="Left" Background="Transparent" 
+                            BorderBrush="Transparent" Foreground="Gray" Cursor="Hand"
+                            Click="BtnVoltar_Click"/>
+                </Grid>
+
+                <TextBlock Text="DADOS PESSOAIS:" FontWeight="Bold" Foreground="#6699CC" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Nome Completo:" Foreground="#003366"/>
+                <TextBox x:Name="txtNome" Height="25" Margin="0,0,0,10"/>
+
+                <TextBlock Text="CPF:" Foreground="#003366"/>
+                <TextBox x:Name="txtCPF" Height="25" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Endereço Completo:" Foreground="#003366"/>
+                <TextBox x:Name="txtEndereco" Height="25" Margin="0,0,0,15"/>
+
+                <TextBlock Text="SEGURANÇA:" FontWeight="Bold" Foreground="#6699CC" Margin="0,10,0,10"/>
+
+                <TextBlock Text="Senha:" Foreground="#003366"/>
+                <PasswordBox x:Name="txtSenha" Height="25" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Confirmar Senha:" Foreground="#003366"/>
+                <PasswordBox x:Name="txtConfirmarSenha" Height="25" Margin="0,0,0,20"/>
+
+                <Button Content="CRIAR CONTA" Background="#0000CC" Foreground="White" FontWeight="Bold"
+                        Height="40" Cursor="Hand" Click="BtnCriarConta_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

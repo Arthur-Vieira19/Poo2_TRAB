@@ -1,0 +1,37 @@
+﻿<Window x:Class="TrabPoo2.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="UVV Fintech - Login" Height="450" Width="800" 
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Background="#F0F4F8">
+        <Border Background="White" Width="350" Height="400" CornerRadius="10" Padding="20">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="Gray" Opacity="0.3"/>
+            </Border.Effect>
+
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="UVV Fintech Avançada" FontSize="20" FontWeight="Bold" 
+                           Foreground="#003366" HorizontalAlignment="Center" Margin="0,0,0,30"/>
+
+                <TextBlock Text="CPF:" Foreground="#003366" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtCPF" 
+                         Height="30" Margin="0,0,0,15" VerticalContentAlignment="Center"/>
+
+                <TextBlock Text="Senha:" Foreground="#003366" Margin="0,0,0,5"/>
+                <PasswordBox x:Name="txtSenha" 
+                             Height="30" Margin="0,0,0,5" VerticalContentAlignment="Center"/>
+
+                <TextBlock Text="Esqueci a senha" Foreground="Blue" FontSize="10" 
+                           HorizontalAlignment="Right" Cursor="Hand" Margin="0,0,0,20"/>
+
+                <Button Content="LOGIN" Background="#0000CC" Foreground="White" FontWeight="Bold"
+                        Height="40" Click="BtnLogin_Click" Cursor="Hand"/>
+
+                <TextBlock Text="REALIZAR CADASTRO" Foreground="#6699CC" HorizontalAlignment="Center" 
+                           Margin="0,20,0,0" Cursor="Hand" MouseLeftButtonDown="TxtCadastro_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
+    

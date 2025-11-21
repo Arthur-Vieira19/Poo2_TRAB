@@ -1,0 +1,28 @@
+Arquivos de compilação
+[Bb]in/
+[Oo]bj/
+
+Arquivos de usuário do VS
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+Pacotes NuGet
+[Pp]ackages/
+*.nupkg
+
+Cache do Rider e outros IDEs
+.idea/
+
+Cache do Visual Studio (pasta oculta)
+.vs/
+
+Arquivos de banco de dados e Migrations (Opcional, mas recomendado)
+Recomendado manter o DbContext e as Migrations, mas não o arquivo .db
+*.mdf
+*.ldf
+*.db
+
+Arquivos de Migrations (descomente se você NÃO quiser versionar as migrações)
+TrabPoo2/Migrations/
